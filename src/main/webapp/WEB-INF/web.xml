@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0">
+
+    <servlet>
+        <servlet-name>customer</servlet-name>
+        <servlet-class>com.example.formauthtest.Customer</servlet-class>
+        <security-role-ref>
+            <role-name>customer</role-name>
+            <role-link>customer</role-link>
+        </security-role-ref>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>customer</servlet-name>
+        <url-pattern>/restricted/customer</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>errorPage</servlet-name>
+        <jsp-file>/ErrorPage.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>errorPage</servlet-name>
+        <url-pattern>/errorPage</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>staff</servlet-name>
+        <servlet-class>com.example.formauthtest.Staff</servlet-class>
+        <security-role-ref>
+            <role-name>staff</role-name>
+            <role-link>staff</role-link>
+        </security-role-ref>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>staff</servlet-name>
+        <url-pattern>/restricted/staff</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>admin</servlet-name>
+        <servlet-class>com.example.formauthtest.Admin</servlet-class>
+        <security-role-ref>
+            <role-name>admin</role-name>
+            <role-link>admin</role-link>
+        </security-role-ref>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>admin</servlet-name>
+        <url-pattern>/restricted/admin</url-pattern>
+    </servlet-mapping>
+
+
+
+
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/LoginPage.jsp</form-login-page>
+            <form-error-page>/ErrorPage.jsp</form-error-page>
+        </form-login-config>
+    </login-config>
+
+    <!-- these roles we manually setup in file apache tomcat/conf/tomcatroles -->
+    <security-role>
+        <role-name>customer</role-name>
+    </security-role>
+    <security-role>
+        <role-name>staff</role-name>
+    </security-role>
+    <security-role>
+        <role-name>admin</role-name>
+    </security-role>
+
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Some secure name</web-resource-name>
+            <url-pattern>/restricted/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
+        <auth-constraint>
+            <role-name>customer</role-name>
+        </auth-constraint>
+        <auth-constraint>
+            <role-name>staff</role-name>
+        </auth-constraint>
+
+        <user-data-constraint>
+            <!-- enable https -->
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+</web-app>

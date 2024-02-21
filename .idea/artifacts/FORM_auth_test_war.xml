@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="FORM-auth-test:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>FORM-auth-test</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="FORM-auth-test-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="FORM-auth-test:war exploded" />
+    </root>
+  </artifact>
+</component>
